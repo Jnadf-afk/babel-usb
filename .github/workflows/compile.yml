@@ -1,0 +1,38 @@
+name: Build and Merge Binary
+
+on:
+  workflow_dispatch: # Allows you to run this manually with a single click
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code with Submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install PlatformIO and Esptool
+        run: |
+          pip install platformio esptool
+
+      - name: Compile Firmware
+        run: |
+          pio run
+
+      - name: Merge Into Web Flasher Bin
+        run: |
+          # Finds the compiled outputs and merges them to address 0x0
+          esptool.py --chip esp32s3 merge_bin -o babel_web_factory.bin --flash_mode dio --flash_size 4MB 0x0000 .pio/build/*/bootloader.bin 0x8000 .pio/build/*/partitions.bin 0x10000 .pio/build/*/firmware.bin
+
+      - name: Upload Finished Web Binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-flasher-bin
+          path: babel_web_factory.bin
