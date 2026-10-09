@@ -1,9 +1,12 @@
 ## About
 
+Original project by PortalRunner on YouTube.
+
 This project turns an ESP32-S3 development board into an infinite filesystem inspired by the [digital Library of Babel](https://libraryofbabel.info/).
 
 ## Usage
 
+## Original method
 1. Buy an ESP32-S3 development board - ideally one shaped as a USB stick for maximum bewilderment. [This is the one I got](https://a.aliexpress.com/_EvdHrrY), though you don't necessarily need this exact variant. **That said, make sure you're getting an ESP32-S3.** That's the only one I've tested. Others may not have hardware USB support. S2 might work, but I make no promises.
 2. Get Visual Studio Code and set up PlatformIO. Refer to Google or YouTube if you don't know how.
 3. Clone this repository **with submodules**. Again, if you don't know what that means, look it up.
@@ -11,6 +14,13 @@ This project turns an ESP32-S3 development board into an infinite filesystem ins
 5. While holding the "BOOT" button, plug the microcontroller into your PC.
 6. Click the "→" icon in VScode to compile and flash the project. Once that's done, disconnect and reconnect the microcontroller.
 7. Explore! You might have to copy files off of the MTP share before reading them, as most programs don't support reading directly from MTP.
+
+## Simple method
+1. Download the .bin in the releases page
+2. Go to any ESP32 flasher (ex. https://esptool.spacehuhn.com/)
+3. Connect your device (Whilst holding BOOT button) and upload the .bin file (NOTE: File should be placed at address 0x0).
+4. Click the "flash" button
+5. Click the reset button (If yours doesn't have one, unplug and plug it back in) and enjoy!
 
 ## Finding specific files
 
